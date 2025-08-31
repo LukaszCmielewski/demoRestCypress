@@ -1,7 +1,8 @@
-//import restPath from "fixtures/rest-path";
+import restPath from "../fixtures/rest-path";
 
-abstract class Actions {
-  path: string;
+
+class PublisherService {
+  path = restPath.publisher;
 
   public get() {
     return cy.request("GET", this.path);
@@ -24,4 +25,4 @@ abstract class Actions {
   }
 }
 
-//export default new Actions();
+export default new PublisherService()
