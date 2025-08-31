@@ -1,5 +1,6 @@
 import {fakerPL} from "@faker-js/faker";
 import {faker} from "@faker-js/faker/locale/pl";
+import * as stream from "node:stream";
 
 class MemberFactory {
   validUser: () => ({
@@ -22,10 +23,29 @@ class MemberFactory {
       lastName: lastName,
       address: address,
       phone: phone,
-      email: email,
+      email: email
     }
     return member;
   }
+
+  newMember(
+      firstName: string,
+      lastName: string,
+      address: string,
+      phone: string,
+      email: string
+  ) {
+    let member = {
+      firstName: firstName,
+      lastName: lastName,
+      address: address,
+      phone: phone,
+      email: email
+    }
+    cy.log(JSON.stringify(member,null, 2));
+    return member;
+  }
+
 
 }
 

@@ -20,7 +20,7 @@ class AuthorService{
   }
 
   public put(id: number, newbody: string) {
-    return cy.request("GET", this.path + `/${id}`, newbody);
+    return cy.request("PUT", this.path + `/${id}`, newbody);
   }
 }
 export default new AuthorService();

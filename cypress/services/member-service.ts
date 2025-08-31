@@ -18,7 +18,7 @@ class MemberService {
     return cy.request("DELETE",  this.path+`/${id}`);
   }
   public putMember(id, newbody){
-    return cy.request("GET", this.path+`/${id}`, newbody);
+    return cy.request("PUT", this.path+`/${id}`, newbody);
   }
 
 }
