@@ -1,7 +1,6 @@
 import restPath from "../fixtures/rest-path";
 
-
-class PublisherService {
+class BorrowingServices{
   path = restPath.publisher;
 
   public get() {
@@ -24,5 +23,4 @@ class PublisherService {
     return cy.request("PUT", this.path + `/${id}`, newbody);
   }
 }
-
-export default new PublisherService()
+export default new BorrowingServices();
