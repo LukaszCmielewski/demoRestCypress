@@ -1,14 +1,14 @@
-import restPath from "../fixtures/rest-path";
+import restPath from "../../fixtures/rest-path";
 
-class AuthorService{
-  path = restPath.author;
+class CategoryService{
+  path = restPath.category;
 
   public get() {
     return cy.request("GET", this.path);
   }
 
   public create(body: string) {
-    return cy.request("POST", this.path, body);
+    return cy.request({method:"POST", url:this.path, body:body, headers:{'Content-Type': 'application/json'}});
   }
 
   public getById(id: number) {
@@ -23,4 +23,4 @@ class AuthorService{
     return cy.request("PUT", this.path + `/${id}`, newbody);
   }
 }
-export default new AuthorService();
+export default new CategoryService()
