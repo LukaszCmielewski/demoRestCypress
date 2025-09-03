@@ -19,14 +19,14 @@ class CategoryFactory{
   addNewRandomCategory ( ){
     let body = this.createCategory();
     cy.log("Category: "+JSON.stringify(body))
-    return this._newCategory(body);
+    return this.newCategory(body);
   }
   addNewCategory(name:string){
     let body={name: name};
-    return this._newCategory(body);
+    return this.newCategory(body);
 
   }
-  private _newCategory(body){
+  newCategory(body){
     return CategoryService.create(JSON.stringify(body)).then(resp => {
       expect(resp.status).to.eq(201);
       return resp.body;
