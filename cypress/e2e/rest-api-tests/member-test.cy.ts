@@ -1,15 +1,5 @@
-import {fakerPL} from "@faker-js/faker";
-import {faker} from "@faker-js/faker/locale/pl";
-import MemberFactory from "../../factories/member-factory";
-import MemberService from "../../services/member-service";
-
-interface Member {
-  firstName: string;
-  lastName: string;
-  address: string;
-  phone: string;
-  email: string;
-}
+import MemberFactory from "../../factories/member/member-factory";
+import MemberService from "../../factories/member/member-service";
 
 describe('Member Test', () => {
   let ids: number[];
@@ -31,6 +21,7 @@ describe('Member Test', () => {
       })
       cy.log("deleted id= " + id);
     }
+    cy.log("CleanUp")
   })
   it('Get members', () => {
     MemberService.getMembers().then((resp) => {
