@@ -1,4 +1,6 @@
+import {fakerPL} from "@faker-js/faker";
 import CategoryFactory from "../../factories/category/category-factory";
+import categoryService from "../../factories/category/category-service";
 import CategoryService from "../../factories/category/category-service";
 
 describe("Category Tests", () => {
@@ -7,6 +9,7 @@ describe("Category Tests", () => {
   beforeEach("SetUp", () => {
     ids = [];
     mainCategory = CategoryFactory.createCategory()
+    cy.log("MAIN: "+JSON.stringify(mainCategory))
     CategoryFactory.addNewCategory(mainCategory.name).then(body => {
       expect(body).to.have.property("id");
       ids.unshift(body.id);
@@ -73,6 +76,73 @@ describe("Category Tests", () => {
     });
   });
   describe("Sub Category Tests",()=>{
-    it("EMPTY", ()=>{});
+    let subcategory;
+    let parentID;
+    beforeEach("setUp subCategory", ()=>{
+      parentID=ids[0];
+      subcategory= CategoryFactory.createCategory()
+      CategoryFactory.addNewCategory(subcategory.name).then(body => {
+        expect(body).to.have.property("id");
+        ids.unshift(body.id);
+        cy.log("Category ID: " + ids[0])
+      })
+    })
+    it("New category with parent category", ()=>{
+      let subBody={
+        name:mainCategory.name+" sub",
+        parentCategory:{
+          id:parentID,
+          name:mainCategory.name,
+        }
+      }
+      cy.log("SUB: "+JSON.stringify(subBody))
+      categoryService.create(JSON.stringify(subBody)).then(resp=>{
+        expect(resp.status).to.eq(201);
+        expect(resp.body).to.have.property("id");
+        expect(resp.body).to.have.property("parentCategory");
+        expect(resp.body.parentCategory).to.have.property("id");
+        expect(resp.body.parentCategory.id).to.eq(ids[ids.length-1])
+        ids.unshift(resp.body.id);
+      })
+    });
+    it("add parentCategory to existing category",()=>{
+      let subBody={
+        id: ids[0],
+        name:subcategory.name,
+        parentCategory:{
+          id:parentID,
+          name:mainCategory.name,
+          parentCategory:null
+        }
+      }
+      cy.log("subID: "+ids[0])
+      cy.log("SUB: "+JSON.stringify(subBody))
+      categoryService.put(ids[0], JSON.stringify(subBody)).then(resp=>{
+        expect(resp.status).to.eq(200);
+        expect(resp.body).to.have.property("id");
+        expect(resp.body).to.have.property("parentCategory");
+        expect(resp.body.parentCategory).to.have.property("id");
+        expect(resp.body.parentCategory.id).to.eq(ids[ids.length-1])
+      })
+    });
+    it.skip("try to delete a parent category while leaving a child category", ()=>{
+      let subBody={
+        id: ids[0],
+        name:subcategory.name,
+        parentCategory:{
+          id:parentID,
+          name:mainCategory.name,
+          parentCategory:null
+        }
+      }
+      cy.log("subID: "+ids[0])
+      cy.log("SUB: "+JSON.stringify(subBody))
+      categoryService.put(ids[0], JSON.stringify(subBody)).then(resp=>{
+        expect(resp.status).to.eq(200);
+      })
+      CategoryService.delete(parentID).then(resp=>{
+        expect(resp.status).to.eq(500);
+      })
+    });
   });
 })

@@ -20,7 +20,8 @@ class CategoryService{
   }
 
   public put(id: number, newbody: string) {
-    return cy.request("PUT", this.path + `/${id}`, newbody);
+    cy.log("PATH: "+ this.path+ `/${id}`)
+    return cy.request({method:"PUT", url:this.path+ `/${id}`, body:newbody, headers:{'Content-Type': 'application/json'}, failOnStatusCode: false});
   }
 }
 export default new CategoryService()
