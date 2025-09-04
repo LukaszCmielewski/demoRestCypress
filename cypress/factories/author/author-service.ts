@@ -16,11 +16,18 @@ class AuthorService{
   }
 
   public delete(id: number) {
-    return cy.request("DELETE", this.path + `/${id}`);
+    return cy.request({method:"DELETE", url:this.path + `/${id}`, failOnStatusCode: false});
   }
 
   public put(id: number, newbody: string) {
-    return cy.request({method: "PUT", url:this.path + `/${id}`, body:newbody, headers:{'Content-Type': 'application/json'}});
+    cy.log("PATH: " + this.path + `/${id}`)
+    return cy.request({
+      method: "PUT",
+      url: this.path + `/${id}`,
+      body: newbody,
+      headers: {'Content-Type': 'application/json'},
+      failOnStatusCode: false
+    });
   }
 }
 export default new AuthorService();
