@@ -8,19 +8,26 @@ class BorrowingServices{
   }
 
   public create(body: string) {
-    return cy.request("POST", this.path, body);
+    return cy.request({method:"POST", url:this.path, body:body, headers:{'Content-Type': 'application/json'}});
   }
 
   public getById(id: number) {
-    return cy.request("GET", this.path + `/${id}`);
+    return cy.request({method:"GET", url:this.path + `/${id}`, failOnStatusCode: false});
   }
 
   public delete(id: number) {
-    return cy.request("DELETE", this.path + `/${id}`);
+    return cy.request({method:"DELETE", url:this.path + `/${id}`, failOnStatusCode: false});
   }
 
   public put(id: number, newbody: string) {
-    return cy.request("PUT", this.path + `/${id}`, newbody);
+    cy.log("PATH: " + this.path + `/${id}`)
+    return cy.request({
+      method: "PUT",
+      url: this.path + `/${id}`,
+      body: newbody,
+      headers: {'Content-Type': 'application/json'},
+      failOnStatusCode: false
+    });
   }
 }
 export default new BorrowingServices();

@@ -1,5 +1,5 @@
-import MemberFactory from "./member-factory";
 import restPath from "../../fixtures/rest-path";
+import MemberFactory from "./member-factory";
 
 
 export type MemberData = {
@@ -20,19 +20,26 @@ class MemberService {
   }
 
   public createMember(body) {
-    return cy.request("POST", this.path, body);
+    return cy.request({method:"POST", url:this.path, body:body, headers:{'Content-Type': 'application/json'}});
   }
 
   public getMember(id: number) {
-    return cy.request("GET", this.path + `/${id}`);
+    return cy.request({method:"GET", url:this.path + `/${id}`, failOnStatusCode: false});
   }
 
   public deleteMember(id) {
-    return cy.request("DELETE", this.path + `/${id}`);
+    return cy.request({method:"DELETE", url:this.path + `/${id}`, failOnStatusCode: false});
   }
 
   public putMember(id, newbody) {
-    return cy.request("PUT", this.path + `/${id}`, newbody);
+    cy.log("PATH: " + this.path + `/${id}`)
+    return cy.request({
+      method: "PUT",
+      url: this.path + `/${id}`,
+      body: newbody,
+      headers: {'Content-Type': 'application/json'},
+      failOnStatusCode: false
+    });
   }
   public createNewMember(data: MemberData): Cypress.Chainable<number> {
     const member = MemberFactory.createNewMember(data);

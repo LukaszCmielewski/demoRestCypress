@@ -12,7 +12,7 @@ class CategoryService{
   }
 
   public getById(id: number) {
-    return cy.request("GET", this.path + `/${id}`);
+    return cy.request({method:"GET", url:this.path + `/${id}`, failOnStatusCode: false});
   }
 
   public delete(id: number) {
@@ -20,8 +20,14 @@ class CategoryService{
   }
 
   public put(id: number, newbody: string) {
-    cy.log("PATH: "+ this.path+ `/${id}`)
-    return cy.request({method:"PUT", url:this.path+ `/${id}`, body:newbody, headers:{'Content-Type': 'application/json'}, failOnStatusCode: false});
+    cy.log("PATH: " + this.path + `/${id}`)
+    return cy.request({
+      method: "PUT",
+      url: this.path + `/${id}`,
+      body: newbody,
+      headers: {'Content-Type': 'application/json'},
+      failOnStatusCode: false
+    });
   }
 }
 export default new CategoryService()
