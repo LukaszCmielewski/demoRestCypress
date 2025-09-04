@@ -1,5 +1,5 @@
 import {fakerPL} from "@faker-js/faker";
-import {faker} from "@faker-js/faker/locale/pl";
+import {faker} from "@faker-js/faker/locale/en";
 import {MemberData} from "./member-service";
 
 

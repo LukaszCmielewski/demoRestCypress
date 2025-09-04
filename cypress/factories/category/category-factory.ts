@@ -1,4 +1,5 @@
-import {fakerPL} from "@faker-js/faker";
+
+import {faker} from "@faker-js/faker/locale/en";
 import CategoryService from "./category-service";
 
 export type CategoryData = {
@@ -12,7 +13,7 @@ class CategoryFactory{
   }
   createNewCategory(data:CategoryData):CategoryData{
     return {
-      name:data.name || fakerPL.book.genre(),
+      name:data.name || faker.book.genre(),
     };
   }
 
