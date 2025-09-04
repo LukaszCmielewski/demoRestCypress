@@ -1,4 +1,3 @@
-import {fakerPL} from "@faker-js/faker";
 import CategoryFactory from "../../factories/category/category-factory";
 import categoryService from "../../factories/category/category-service";
 import CategoryService from "../../factories/category/category-service";
@@ -125,7 +124,7 @@ describe("Category Tests", () => {
         expect(resp.body.parentCategory.id).to.eq(ids[ids.length-1])
       })
     });
-    it.skip("try to delete a parent category while leaving a child category", ()=>{
+    it("try to delete a parent category while leaving a child category", ()=>{
       let subBody={
         id: ids[0],
         name:subcategory.name,
