@@ -1,4 +1,4 @@
-import restPath from "../fixtures/rest-path";
+import restPath from "../../fixtures/rest-path";
 
 
 class PublisherService {
