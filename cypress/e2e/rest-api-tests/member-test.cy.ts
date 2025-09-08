@@ -1,3 +1,5 @@
+import RestPath from "../../fixtures/rest-path";
+import {deleteAll} from "../../support/api-utils";
 import MemberFactory from "../../factories/member/member-factory";
 import MemberService from "../../factories/member/member-service";
 
@@ -15,12 +17,7 @@ describe('Member Test', () => {
     })
   })
   afterEach('clean', () => {
-    for (const id of ids) {
-      MemberService.deleteMember(id).then(resp => {
-        expect(resp.status).to.eq(204);
-      })
-      cy.log("deleted id= " + id);
-    }
+    deleteAll(RestPath.member);
     cy.log("CleanUp")
   })
   it('Get members', () => {
