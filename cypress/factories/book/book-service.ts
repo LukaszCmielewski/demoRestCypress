@@ -1,4 +1,6 @@
-import restPath from "../fixtures/rest-path";
+import RestPath from "../../fixtures/rest-path";
+import {deleteAll} from "../../support/api-utils";
+import restPath from "../../fixtures/rest-path";
 
 class BookService{
   path = restPath.book;
@@ -28,6 +30,12 @@ class BookService{
       headers: {'Content-Type': 'application/json'},
       failOnStatusCode: false
     });
+  }
+  public cleanAll(){
+    deleteAll(RestPath.book);
+    deleteAll(RestPath.category);
+    deleteAll(RestPath.publisher);
+    deleteAll(RestPath.author);
   }
 }
 export default new BookService();

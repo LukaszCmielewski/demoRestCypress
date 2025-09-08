@@ -1,6 +1,8 @@
 import {faker} from "@faker-js/faker/locale/en";
 import AuthorFactory, {AuthorData} from "../../factories/author/author-factory";
 import AuthorService from "../../factories/author/author-service";
+import RestPath from "../../fixtures/rest-path";
+import {deleteAll, getIds} from "../../support/api-utils";
 
 describe("Author test", () => {
   let ids: number[];
@@ -16,12 +18,7 @@ describe("Author test", () => {
     })
   })
   afterEach('clean', () => {
-    for (const id of ids) {
-      AuthorService.delete(id).then(resp => {
-        expect(resp.status).to.eq(204);
-      })
-      cy.log("deleted id= " + id);
-    }
+    deleteAll(RestPath.author);
     cy.log("CleanUp")
   })
   it("Get Author", () => {

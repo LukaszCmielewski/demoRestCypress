@@ -1,3 +1,6 @@
+
+import RestPath from "../../fixtures/rest-path";
+import {deleteAll, getIds} from "../../support/api-utils";
 import CategoryFactory from "../../factories/category/category-factory";
 import categoryService from "../../factories/category/category-service";
 import CategoryService from "../../factories/category/category-service";
@@ -16,12 +19,7 @@ describe("Category Tests", () => {
     })
   })
   afterEach("CleanUp", () => {
-    for (let id of ids) {
-      CategoryService.delete(id).then(resp => {
-        expect(resp.status).to.eq(204);
-      })
-      cy.log("deleted Category ID= " + id);
-    }
+    deleteAll(RestPath.category);
     cy.log("CleanUp")
   })
   describe("Main Category Tests", () => {
@@ -140,7 +138,7 @@ describe("Category Tests", () => {
         expect(resp.status).to.eq(200);
       })
       CategoryService.delete(parentID).then(resp=>{
-        expect(resp.status).to.eq(500);
+        expect(resp.status).to.eq(403);
       })
     });
   });

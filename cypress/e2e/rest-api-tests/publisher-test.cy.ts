@@ -1,4 +1,5 @@
-import AuthorService from "factories/author/author-service";
+import RestPath from "../../fixtures/rest-path";
+import {deleteAll} from "../../support/api-utils";
 import PublisherFactory, {PublisherData} from "../../factories/publisher/publisher-factory";
 import PublisherService from "../../factories/publisher/publisher-service";
 import {faker} from "@faker-js/faker/locale/en";
@@ -17,12 +18,7 @@ describe("Publisher Tests",()=>{
     })
   });
   afterEach('clean', () => {
-    for (const id of ids) {
-      PublisherService.delete(id).then(resp => {
-        expect(resp.status).to.eq(204);
-      })
-      cy.log("deleted id= " + id);
-    }
+    deleteAll(RestPath.publisher);
     cy.log("CleanUp")
   });
   it("Get Publisher", () => {
