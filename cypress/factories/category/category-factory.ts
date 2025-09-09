@@ -5,7 +5,7 @@ import CategoryService from "./category-service";
 export type CategoryData = {
   id ?: number;
   name?: string;
-  parentCategory?: string;
+  parentCategory?: CategoryData;
 };
 class CategoryFactory{
   createCategory(){
@@ -14,6 +14,7 @@ class CategoryFactory{
   createNewCategory(data:CategoryData):CategoryData{
     return {
       name:data.name || faker.book.genre(),
+      parentCategory:data.parentCategory || null
     };
   }
 

@@ -1,7 +1,15 @@
 import {fakerPL} from "@faker-js/faker";
 import {faker} from "@faker-js/faker/locale/en";
-import {MemberData} from "./member-service";
 
+
+export type MemberData = {
+  id ?: number;
+  firstName?: string;
+  lastName?: string;
+  address?: string;
+  phone?: string;
+  email?: string;
+};
 
 class MemberFactory {
   validUser: () => ({
