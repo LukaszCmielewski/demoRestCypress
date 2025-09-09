@@ -1,15 +1,8 @@
 import restPath from "../../fixtures/rest-path";
-import MemberFactory from "./member-factory";
+import MemberFactory, {MemberData} from "./member-factory";
 
 
-export type MemberData = {
-  id ?: number;
-  firstName?: string;
-  lastName?: string;
-  address?: string;
-  phone?: string;
-  email?: string;
-};
+
 
 class MemberService {
   // @ts-ignore
